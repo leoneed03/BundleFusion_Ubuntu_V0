@@ -60,7 +60,9 @@ SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 set (CMAKE_CXX_STANDARD 11)
 SET(CMAKE_C_COMPILER g++)
 add_compile_options(-std=c++11)
+set(OpenNI_INCLUDE_DIRS_HELP /usr/include/openni2)
 include_directories(
+   ${OpenNI_INCLUDE_DIRS_HELP}
 ${PROJECT_SOURCE_DIR}/external/mLib/include
 ${PROJECT_SOURCE_DIR}/mLibExternal/include
 ${PROJECT_SOURCE_DIR}/FriedLiver/Include/cutil/inc
@@ -138,7 +140,7 @@ ${OPENGL_LIBRARIES}
 ${GLEW_LIBRARY}
 ${GLFW3_LIBRARY}
 GLEW
-glfw3
+glfw
 X11 Xrandr Xinerama Xi Xxf86vm Xcursor pthread dl
 GLU
 #${PROJECT_NAME}/lib/libfreeimage.a

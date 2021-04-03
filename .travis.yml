@@ -1,0 +1,87 @@
+language: generic
+
+matrix:
+  include:
+    - os: linux
+      python: 3.7
+      addons:
+        apt:
+          packages:
+            - g++-6
+            - gcc-6
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+      dist: bionic
+
+packages:
+  - gcc-5
+  - g++-5
+  - cmake
+
+before_install:
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 10
+  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 10
+## Toolkit [NVCC]
+#  - sudo apt install -y nvidia-cuda-dev nvidia-cuda-toolkit
+## GTest
+#  - sudo apt-get install libgtest-dev
+#  - sudo apt-get install cmake
+#  - cd /usr/src/gtest
+#  - sudo cmake CMakeLists.txt
+#  - sudo make
+#  - sudo cp *.a /usr/lib
+# Dependencies
+#  - sudo apt -y install libpcl-dev
+  - sudo apt-get -y install libdevil-dev
+#  - sudo apt-get -y install libboost-all-dev
+  - sudo apt-get -y install libceres-dev
+  - sudo apt-get -y install libtbb-dev
+  - sudo apt-get -y install libeigen3-dev
+  - sudo apt-get -y install libopencv-dev
+  - sudo apt-get -y install libmetis-dev
+  - sudo apt-get -y install libglu1-mesa-dev freeglut3-dev mesa-common-dev
+  - sudo apt -y install libglew-dev
+  - sudo apt install -y libglfw3-dev libfreeimage-dev libopenni-dev llibxinerama-dev libxi-dev libcursor-dev
+
+  #  - sudo apt-get -y install gnuplot
+# Python tools
+#  - sudo apt-get -y install python3.7-dev
+#  - sudo apt-get -y install python3-numpy
+#  - sudo apt-get -y install python3-matplotlib
+
+  #  - sudo apt-get -y install libgoogle-glog-dev libgflags-dev
+  # BLAS & LAPACK
+#  - sudo apt-get -y install libatlas-base-dev
+#  - sudo apt-get -y install libmetis-dev
+#
+#  - sudo apt-get install libopencv-dev
+#  - sudo apt-get -y install libdevil-dev
+#  - sudo apt -y install libglew-dev
+#  - sudo apt-get install -y glew-utils
+#  - sudo apt-get -y install libglu1-mesa-dev freeglut3-dev mesa-common-dev
+#  - sudo apt install python3-opencv
+#  - sudo apt-get -y install cmake
+#  - sudo apt-get -y install libboost-all-dev
+#
+#  - sudo apt-get -y install libstdc++6
+#  - sudo apt-get install g++
+#  - sudo apt install libpcl-dev
+#  - sudo apt-get -y install libeigen3-dev
+#  - sudo apt-get -y install libboost-dev
+#  - sudo apt-get -y install libboost-test-dev
+#  - sudo apt-get -y install libboost-system-dev
+#  - sudo apt-get -y install libboost-filesystem-dev
+#  - sudo apt-get -y install libboost-thread-dev
+#  - sudo apt-get -y install libboost-program-options-dev
+#  - sudo apt-get -y install libtbb-dev
+
+
+
+script:
+  - cd
+  - cd build/leoneed03/GDR
+  - ls
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
