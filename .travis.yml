@@ -14,11 +14,14 @@ matrix:
       dist: bionic
 
 packages:
+  - gcc-6
+  - g++-6
   - gcc-5
   - g++-5
   - cmake
 
 before_install:
+  - sudo apt install -y g++-5
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 10
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 10
 ## Toolkit [NVCC]
