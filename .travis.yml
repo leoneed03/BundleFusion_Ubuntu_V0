@@ -25,7 +25,7 @@ before_install:
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 10
   - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 10
 ## Toolkit [NVCC]
-#  - sudo apt install -y nvidia-cuda-dev nvidia-cuda-toolkit
+  - sudo apt install -y nvidia-cuda-dev nvidia-cuda-toolkit
 ## GTest
 #  - sudo apt-get install libgtest-dev
 #  - sudo apt-get install cmake
