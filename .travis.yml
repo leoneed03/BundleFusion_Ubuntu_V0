@@ -83,7 +83,7 @@ before_install:
 
 script:
   - cd
-  - cd build/leoneed03/GDR
+  - cd build/leoneed03/BundleFusion_Ubuntu_V0
   - ls
   - mkdir build
   - cd build
