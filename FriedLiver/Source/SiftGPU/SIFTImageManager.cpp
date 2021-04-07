@@ -6,6 +6,7 @@
 
 SIFTImageManager::SIFTImageManager(unsigned int maxImages /*= 500*/, unsigned int maxKeyPointsPerImage /*= 4096*/)
 {
+    std::cout << "SIFT Image Manager init with " << maxImages << std::endl;
 	m_maxNumImages = maxImages;
 	m_maxKeyPointsPerImage = maxKeyPointsPerImage;
 
@@ -44,7 +45,8 @@ unsigned int SIFTImageManager::getNumKeyPointsPerImage(unsigned int imageIdx) co
 SIFTImageGPU& SIFTImageManager::createSIFTImageGPU()
 {
 	assert(m_SIFTImagesGPU.size() == 0 || m_bFinalizedGPUImage);
-	assert(m_SIFTImagesGPU.size() < m_maxNumImages);
+	std::cout << "created " << m_SIFTImagesGPU.size() << " of " << m_maxNumImages << std::endl;
+	assert(m_SIFTImagesGPU.size() < m_maxNumImages); //fails here frame 558 then 509
 
 	unsigned int imageIdx = (unsigned int)m_SIFTImagesGPU.size();
 	m_SIFTImagesGPU.push_back(SIFTImageGPU());

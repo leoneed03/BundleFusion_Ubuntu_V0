@@ -22,7 +22,7 @@ s_rayCastWidth = 320;		//should be same as integration except if rendering video
 s_rayCastHeight = 240;
 
 //trajectory manager/reintegration
-s_maxFrameFixes = 10;		//max number of frames reintegrated per frame 
+s_maxFrameFixes = 20;		//max number of frames reintegrated per frame
 s_topNActive = 30;			//max number of active elements to be reintegrated (sorted list)
 s_minPoseDistSqrt = 0.0f;	//reintegrate everything above that pose distance (squared dist)
 

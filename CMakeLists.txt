@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.5)
 project(BundleFusion_Ubuntu)
 
 SET(CMAKE_BUILD_TYPE "Debug")
-SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
+set(GCC_COVERAGE_COMPILE_FLAGS " -O3")
+#SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
+SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O3 -g2 -ggdb")
 SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/modules/")
@@ -11,6 +13,9 @@ find_package(OpenCV REQUIRED)
 
 find_package(GLFW3 REQUIRED)
 message(STATUS "Found GLFW3 in ${GLFW3_INCLUDE_DIR}")
+
+find_package(OpenNI2 REQUIRED)
+message(STATUS "Found OpenNI2 in ${OPENNI2_INCLUDE_DIRS}")
 
 find_package(GLEW REQUIRED)
 message(STATUS "Found GLEW in ${GLEW_INCLUDE_DIR}")
@@ -35,8 +40,6 @@ include_directories(
         ${EIGEN3_INCLUDE_DIR}      
 )
 
-#INCLUDE_DIRECTORIES(/home/manifold/OpenNI-Linux-x64-2.3.0.43/Include)
-INCLUDE_DIRECTORIES(/home/manifold/ASUS-Linux-x64-OpenNI2.2/Include)
 include_directories(${OpenCV_INCLUDE_DIRS})
 
 include_directories(${OpenGL_INCLUDE_DIRS})
@@ -55,14 +58,16 @@ set(CUDA_PROPAGATE_HOST_FLAGS OFF)
 set(CUDA_NVCC_FLAGS -arch=sm_61;-O3;-G;-g;-std=c++11)
 
 SET(CMAKE_BUILD_TYPE "Debug")
-SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
+SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O3 -g2 -ggdb")
+#SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g2 -ggdb")
 SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 set (CMAKE_CXX_STANDARD 11)
 SET(CMAKE_C_COMPILER g++)
 add_compile_options(-std=c++11)
-set(OpenNI_INCLUDE_DIRS_HELP /usr/include/openni2)
+#set(OpenNI_INCLUDE_DIRS_HELP /usr/include/openni2)
 include_directories(
-   ${OpenNI_INCLUDE_DIRS_HELP}
+        ${OPENNI2_INCLUDE_DIRS}
+#   ${OpenNI_INCLUDE_DIRS_HELP}
 ${PROJECT_SOURCE_DIR}/external/mLib/include
 ${PROJECT_SOURCE_DIR}/mLibExternal/include
 ${PROJECT_SOURCE_DIR}/FriedLiver/Include/cutil/inc
