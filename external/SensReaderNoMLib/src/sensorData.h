@@ -185,6 +185,15 @@ namespace ml {
 			matrix[12] = 0.0f;	matrix[13] = 0.0f;	matrix[14] = 0.0f; matrix[15] = 1.0;
 		}
 
+		void printToConsole() const {
+		    for (int i = 0; i < 4; ++i) {
+		        for (int j = 0; j < 4; ++j) {
+		            std::cout << matrix2[i][j] << ' ';
+		        }
+		        std::cout << std::endl;
+		    }
+		}
+
 		static mat4f identity() {
 			mat4f res;	res.setIdentity();
 			return res;

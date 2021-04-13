@@ -3,13 +3,18 @@
 #include <core-base/common.h>
 #include <core-util/parameterFile.h>
 //#define OPEN_NI
- 
+//#include "KinectSensor.h"
 //https://blog.csdn.net/Ziv2086581691/article/details/52248813
 
 RGBDSensor* getRGBDSensor()
 {
 	static RGBDSensor* g_sensor = NULL;
-	if (g_sensor != NULL)	return g_sensor;
+
+
+    if (g_sensor != NULL)	return g_sensor;
+
+    g_sensor = new SensorDataReader;
+    return g_sensor;
 /*
 	if (GlobalAppState::get().s_sensorIdx == 0) {
 #ifdef KINECT
@@ -22,6 +27,7 @@ RGBDSensor* getRGBDSensor()
 #endif
 	}
 */
+
 	if (GlobalAppState::get().s_sensorIdx == 1)	{
 //#ifdef OPEN_NI
 		//static PrimeSenseSensor s_primeSense;
@@ -33,6 +39,7 @@ RGBDSensor* getRGBDSensor()
 //		throw MLIB_EXCEPTION("Requires OpenNI 2 SDK and enable OPEN_NI macro");
 //#endif
 	}
+	//TODO: change sensor
 /*	else if (GlobalAppState::getInstance().s_sensorIdx == 2) {
 #ifdef KINECT_ONE
 		//static KinectOneSensor s_kinectOne;
@@ -209,6 +216,9 @@ using namespace ml;
 int main(int argc, char** argv)
 {
 
+    std::cout << "start Bundle Fusion" << std::endl;
+
+    printf("Current working dir: %s\n", get_current_dir_name());
 	try {
 		std::string fileNameDescGlobalApp;
 		std::string fileNameDescGlobalBundling;
@@ -280,22 +290,22 @@ int main(int argc, char** argv)
 		g_bundler = new OnlineBundler(g_RGBDSensor, g_imageManager);
                
 #endif
+		std::cout << "out of run multithread " << std::endl;
 
 
 		dualGPU.setDevice(DualGPU::DEVICE_RECONSTRUCTION);	//main gpu
 
 		//start depthSensing render loop
-		startDepthSensing(g_bundler, getRGBDSensor(), g_imageManager);
 
-		//TimingLog::printAllTimings();
-		//g_bundler->saveGlobalSiftManagerAndCacheToFile("debug/global");
-		//if (GlobalBundlingState::get().s_recordSolverConvergence) g_bundler->saveConvergence("convergence.txt");
-		//g_bundler->saveCompleteTrajectory("trajectory.bin");
-		//g_bundler->saveSiftTrajectory("siftTrajectory.bin");
-		//g_bundler->saveIntegrateTrajectory("intTrajectory.bin");
-		//g_bundler->saveLogsToFile();
+        std::cout << "orender loop " << std::endl;
+//LOOP
+        startDepthSensing(g_bundler, getRGBDSensor(), g_imageManager);
 
-#ifdef RUN_MULTITHREADED 
+
+#ifdef RUN_MULTITHREADED
+
+        std::cout << "in of run multithread  2" << std::endl;
+
 		g_bundler->exitBundlingThread();
 
 		g_imageManager->setBundlingFrameRdy();			//release all bundling locks
@@ -304,6 +314,9 @@ int main(int argc, char** argv)
 
 		if (bundlingThread.joinable())	bundlingThread.join();	//wait for the bundling thread to return;
 #endif
+
+        std::cout << "out of run multithread 2" << std::endl;
+
 		SAFE_DELETE(g_bundler);
 		SAFE_DELETE(g_imageManager);
 
@@ -314,7 +327,6 @@ int main(int argc, char** argv)
 		SAFE_DELETE(s);
 
 		std::cout << "DONE! <<press key to exit program>>" << std::endl;
-		getchar();
 
 	}
 

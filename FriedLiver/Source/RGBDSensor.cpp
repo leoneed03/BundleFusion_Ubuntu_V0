@@ -122,7 +122,7 @@ const mat4f& RGBDSensor::getColorExtrinsicsInv() const
 	return m_colorExtrinsicsInv;
 }
 
-
+//TODO
 void RGBDSensor::initializeDepthExtrinsics(const mat4f& m) {
 	if (m == mat4f::identity()) {
 		GlobalAppState::get().s_bUseCameraCalibration = false;
@@ -130,11 +130,19 @@ void RGBDSensor::initializeDepthExtrinsics(const mat4f& m) {
 		m_depthExtrinsicsInv = mat4f::identity();
 	}
 	else {
+        std::cout << "check extrinsics" << std::endl;
+        exit(1);
 		m_depthExtrinsics = m;
 		m_depthExtrinsicsInv = m.getInverse();
 	}
+
 }
 void RGBDSensor::initializeColorExtrinsics(const mat4f& m) {
+    if (m != mat4f::identity()) {
+
+        std::cout << "check extrinsics rgb" << std::endl;
+        exit(1);
+    }
 	m_colorExtrinsics = m;
 	m_colorExtrinsicsInv = m.getInverse();
 }
